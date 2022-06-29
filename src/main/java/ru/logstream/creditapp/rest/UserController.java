@@ -1,7 +1,10 @@
 package ru.logstream.creditapp.rest;
 
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.logstream.creditapp.models.beans.UserBean;
+import ru.logstream.creditapp.models.validation.Create;
+import ru.logstream.creditapp.models.validation.Update;
 import ru.logstream.creditapp.services.UserRepositoryService;
 
 @RestController
@@ -9,7 +12,7 @@ import ru.logstream.creditapp.services.UserRepositoryService;
 public class UserController {
     private UserRepositoryService service;
     @PostMapping
-    public UserBean save(@RequestBody UserBean user) {
+    public UserBean save(@RequestBody @Validated(Create.class) UserBean user) {
         return service.save(user);
     }
 
@@ -19,7 +22,7 @@ public class UserController {
     }
 
     @PutMapping
-    public UserBean update(@RequestBody UserBean user) {
+    public UserBean update(@RequestBody @Validated(Update.class) UserBean user) {
         return service.update(user);
     }
 }

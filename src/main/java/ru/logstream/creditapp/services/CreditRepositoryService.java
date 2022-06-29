@@ -2,10 +2,10 @@ package ru.logstream.creditapp.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.logstream.creditapp.models.beans.CreditBean;
 import ru.logstream.creditapp.converters.CreditConverter;
 import ru.logstream.creditapp.dao.CreditRepository;
-import ru.logstream.creditapp.exceptions.CreditNotApprovedException;
+import ru.logstream.creditapp.exceptions.CreditNotFoundException;
+import ru.logstream.creditapp.models.beans.CreditBean;
 
 import java.util.List;
 
@@ -18,16 +18,26 @@ public class CreditRepositoryService {
     public void setCreditRepositoryService(CreditRepository creditRepository) {
         this.repository = creditRepository;
     }
+
     @Autowired
     public void setCreditConverter(CreditConverter converter) {
         this.converter = converter;
     }
 
     public CreditBean save(CreditBean credit) {
-            return converter.toBean(repository.save(converter.toEntity(credit)));
+        return converter.toBean(repository.save(converter.toEntity(credit)));
     }
 
-    public List<CreditBean>  getCreditEntitiesByUserId(Long userId) {
+    public CreditBean update(CreditBean credit) {
+        if (repository.existsById(credit.getId())) {
+            return converter.toBean(repository.save(converter.toEntity(credit)));
+        } else {
+            throw new CreditNotFoundException("Credit with id = " + credit.getId()
+                    + "and userId = " + credit.getUserId() + "not found!");
+        }
+    }
+
+    public List<CreditBean> getCreditEntitiesByUserId(Long userId) {
         return repository.getCreditEntitiesByUserId(userId).stream().map(converter::toBean).toList();
     }
 

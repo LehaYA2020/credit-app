@@ -1,18 +1,36 @@
 package ru.logstream.creditapp.models.beans;
 
 import lombok.Getter;
+import ru.logstream.creditapp.models.validation.Create;
+import ru.logstream.creditapp.models.validation.Update;
 
+import javax.validation.constraints.AssertFalse;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 import java.time.LocalDate;
 
 @Getter
 public class CreditBean {
+
+    @NotNull(groups = Update.class)
+    @Null(groups = Create.class)
     private final Long id;
+    @NotNull(groups = {Create.class, Update.class})
     private final Long userId;
+    @NotNull(groups = Create.class)
+    @AssertFalse(groups = Create.class)
     private final Boolean isPaid;
+
+    @NotNull(groups = Create.class)
     private final Integer percent;
+
+    @NotNull(groups = Create.class)
     private final Integer term;
+    @NotNull(groups = Create.class)
     private final Integer amount;
+    @NotNull(groups = Create.class)
     private final LocalDate processingDate;
+    @NotNull(groups = Create.class)
     private final LocalDate repaymentDate;
 
     private CreditBean(Long id, Long userId, Boolean isPaid, Integer percent, Integer term, Integer amount, LocalDate processingDate, LocalDate repaymentDate) {
