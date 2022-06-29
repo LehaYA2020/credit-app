@@ -1,41 +1,39 @@
-package ru.logstream.creditapp.entities;
+package ru.logstream.creditapp.models.beans;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Objects;
 
-@Entity
 @Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-@Table(name = "users")
-public class UserEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @Column(name = "name")
-    private String name;
-    @Column(name = "surname")
-    private String surname;
-    @Column(name = "birthday")
-    private LocalDate birthday;
-    @Column(name = "phone_number")
-    private String phoneNumber;
-    @Column(name = "income")
-    private Long income;
+public class UserBean {
+    private final Long id;
+    private final String name;
+    private final String surname;
+    private final LocalDate birthday;
+    private final String phoneNumber;
+    private final Long income;
+
+    private UserBean(Long id, String name, String surname, LocalDate birthday, String phoneNumber, Long income) {
+        this.id = id;
+        this.name = name;
+        this.surname = surname;
+        this.birthday = birthday;
+        this.phoneNumber = phoneNumber;
+        this.income = income;
+    }
+
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        UserEntity that = (UserEntity) o;
-        return Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(surname, that.surname) && Objects.equals(birthday, that.birthday) && Objects.equals(phoneNumber, that.phoneNumber) && Objects.equals(income, that.income);
+        UserBean that = (UserBean) o;
+        return Objects.equals(id, that.id) && Objects.equals(name, that.name)
+                && Objects.equals(surname, that.surname)
+                && Objects.equals(birthday, that.birthday)
+                && Objects.equals(phoneNumber, that.phoneNumber)
+                && Objects.equals(income, that.income);
     }
 
     @Override
@@ -43,7 +41,7 @@ public class UserEntity {
         return Objects.hash(id, name, surname, birthday, phoneNumber, income);
     }
 
-    public static Builder builder() {
+    public static Builder builder(){
         return new Builder();
     }
 
@@ -90,8 +88,8 @@ public class UserEntity {
             return this;
         }
 
-        public UserEntity build() {
-            return new UserEntity(id, name, surname, birthday, phoneNumber, income);
+        public UserBean build() {
+            return new UserBean(id, name, surname, birthday, phoneNumber, income);
         }
     }
 }

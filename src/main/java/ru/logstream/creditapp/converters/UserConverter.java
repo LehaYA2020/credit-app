@@ -1,8 +1,8 @@
 package ru.logstream.creditapp.converters;
 
 import org.springframework.stereotype.Component;
-import ru.logstream.creditapp.beans.UserBean;
-import ru.logstream.creditapp.entities.UserEntity;
+import ru.logstream.creditapp.models.beans.UserBean;
+import ru.logstream.creditapp.models.entities.UserEntity;
 
 @Component
 public class UserConverter {

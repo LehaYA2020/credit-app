@@ -1,37 +1,32 @@
-package ru.logstream.creditapp.entities;
+package ru.logstream.creditapp.models.beans;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-import javax.persistence.*;
 import java.time.LocalDate;
 
-@Entity
 @Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Table(name = "credits")
-public class CreditEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @Column(name = "user_id")
-    private Long userId;
-    @Column(name = "paid")
-    private Boolean isPaid;
-    @Column(name = "percent")
-    private Integer percent;
-    @Column(name = "term")
-    private Integer term;
-    @Column(name = "processing_date")
-    private LocalDate processingDate;
-    @Column(name = "repayment_date")
-    private LocalDate repaymentDate;
+public class CreditBean {
+    private final Long id;
+    private final Long userId;
+    private final Boolean isPaid;
+    private final Integer percent;
+    private final Integer term;
+    private final Integer amount;
+    private final LocalDate processingDate;
+    private final LocalDate repaymentDate;
 
-    public Builder builder() {
+    private CreditBean(Long id, Long userId, Boolean isPaid, Integer percent, Integer term, Integer amount, LocalDate processingDate, LocalDate repaymentDate) {
+        this.id = id;
+        this.userId = userId;
+        this.isPaid = isPaid;
+        this.percent = percent;
+        this.term = term;
+        this.amount = amount;
+        this.processingDate = processingDate;
+        this.repaymentDate = repaymentDate;
+    }
+
+    public static Builder builder() {
         return new Builder();
     }
 
@@ -41,6 +36,7 @@ public class CreditEntity {
         private Boolean isPaid;
         private Integer percent;
         private Integer term;
+        private Integer amount;
         private LocalDate processingDate;
         private LocalDate repaymentDate;
 
@@ -69,6 +65,11 @@ public class CreditEntity {
             return this;
         }
 
+        public Builder amount(Integer amount) {
+            this.amount = amount;
+            return this;
+        }
+
         public Builder processingDate(LocalDate processingDate) {
             this.processingDate = processingDate;
             return this;
@@ -83,8 +84,8 @@ public class CreditEntity {
 
         }
 
-        public CreditEntity build() {
-            return new CreditEntity(id, userId, isPaid, percent, term, processingDate, repaymentDate);
+        public CreditBean build() {
+            return new CreditBean(id, userId, isPaid, percent, term, amount, processingDate, repaymentDate);
         }
     }
 }

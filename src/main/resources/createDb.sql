@@ -5,27 +5,19 @@ CREATE TABLE IF NOT EXISTS users
     surname                 varchar                     NOT NULL CHECK (surname != ''),
     birthday                timestamptz                 NOT NULL,
     phone_number            varchar                     NOT NULL CHECK (phone_number != ''),
-    name                    varchar                     NOT NULL,
-    surname                 varchar                     NOT NULL,
-    second_name             varchar,
-    phone                   bigint                     NOT NULL,
-    sub_expire_notification boolean     DEFAULT 'false',
-    telegram_id             bigint,
+    income                  bigint                      NOT NULL,
     PRIMARY KEY (id)
-    );
+);
 
-CREATE TABLE IF NOT EXISTS customers
+CREATE TABLE IF NOT EXISTS credits
 (
-    id                      bigint                      NOT NULL GENERATED ALWAYS AS IDENTITY,
-    name                    varchar                     NOT NULL CHECK (name != ''),
-    surname                 varchar                     NOT NULL CHECK (surname != ''),
-    birthday                timestamptz                 NOT NULL,
-    phone_number            varchar                     NOT NULL CHECK (phone_number != ''),
-    name                    varchar                     NOT NULL,
-    surname                 varchar                     NOT NULL,
-    second_name             varchar,
-    phone                   bigint                     NOT NULL,
-    sub_expire_notification boolean     DEFAULT 'false',
-    telegram_id             bigint,
+    id                      bigint                      NOT NULL    GENERATED ALWAYS AS IDENTITY,
+    user_id                 bigint                      NOT NULL,
+    is_paid                 boolean                     DEFAULT     'false',
+    percent                 int                         NOT NULL    DEFAULT (0),
+    term                    int                         NOT NULL,
+    amount                  bigint                      NOT NULL,
+    processing_date         timestamptz                 NOT NULL DEFAULT NOW(),
+    prepayment_date         timestamptz,
     PRIMARY KEY (id)
-    );
+);
