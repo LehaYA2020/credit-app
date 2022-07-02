@@ -1,8 +1,12 @@
 package ru.logstream.creditapp.models.beans;
 
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import lombok.Getter;
 import ru.logstream.creditapp.models.validation.Create;
 import ru.logstream.creditapp.models.validation.Update;
+import spinjar.com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import spinjar.com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import javax.validation.constraints.AssertFalse;
 import javax.validation.constraints.NotNull;
@@ -32,6 +36,7 @@ public class CreditBean {
     private final LocalDate processingDate;
     @NotNull(groups = Create.class)
     private final LocalDate repaymentDate;
+
 
     private CreditBean(Long id, Long userId, Boolean isPaid, Integer percent, Integer term, Integer amount, LocalDate processingDate, LocalDate repaymentDate) {
         this.id = id;

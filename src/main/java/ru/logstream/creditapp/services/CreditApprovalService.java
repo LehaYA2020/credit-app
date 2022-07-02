@@ -27,12 +27,14 @@ public class CreditApprovalService {
             UserBean user = userRepositoryService.getById(credit.getUserId());
             if (creditRepositoryService.haveCreditHistory(user.getId())) {
                 if (checkCreditHistory(user.getId()) && checkSolvency(user, credit)) {
+                    creditRepositoryService.save(credit);
                     return true;
                 } else {
                     return false;
                 }
             } else {
                 if(checkSolvency(user, credit)){
+                    creditRepositoryService.save(credit);
                     return true;
                 }else return false;
             }

@@ -6,7 +6,9 @@ import ru.logstream.creditapp.converters.CreditConverter;
 import ru.logstream.creditapp.dao.CreditRepository;
 import ru.logstream.creditapp.exceptions.CreditNotFoundException;
 import ru.logstream.creditapp.models.beans.CreditBean;
+import ru.logstream.creditapp.models.entities.CreditEntity;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -25,7 +27,9 @@ public class CreditRepositoryService {
     }
 
     public CreditBean save(CreditBean credit) {
-        return converter.toBean(repository.save(converter.toEntity(credit)));
+        CreditEntity entity = converter.toEntity(credit);
+        entity.setProcessingDate(LocalDate.now());
+        return converter.toBean(repository.save(entity));
     }
 
     public CreditBean update(CreditBean credit) {

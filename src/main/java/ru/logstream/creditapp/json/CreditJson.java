@@ -1,37 +1,54 @@
-package ru.logstream.creditapp.models.entities;
+package ru.logstream.creditapp.json;
 
-import lombok.AllArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import ru.logstream.creditapp.models.validation.Create;
+import ru.logstream.creditapp.models.validation.Update;
 
-import javax.persistence.*;
+import javax.validation.constraints.AssertFalse;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 import java.time.LocalDate;
 
-@Entity
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
-@Table(name = "credits")
-public class CreditEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class CreditJson {
+    @NotNull(groups = Update.class)
+    @Null(groups = Create.class)
     private Long id;
-    @Column(name = "user_id")
+    @NotNull(groups = {Create.class, Update.class})
     private Long userId;
-    @Column(name = "is_paid")
+    @NotNull(groups = Create.class)
+    @AssertFalse(groups = Create.class)
     private Boolean isPaid;
-    @Column(name = "percent")
+
+    @NotNull(groups = Create.class)
     private Integer percent;
-    @Column(name = "term")
+
+    @NotNull(groups = Create.class)
     private Integer term;
-    @Column(name = "amount")
+    @NotNull(groups = Create.class)
     private Integer amount;
-    @Column(name = "processing_date")
+    @NotNull(groups = Create.class)
     private LocalDate processingDate;
-    @Column(name = "repayment_date")
+    @NotNull(groups = Create.class)
     private LocalDate repaymentDate;
+
+
+    private CreditJson(Long id, Long userId, Boolean isPaid, Integer percent, Integer term, Integer amount, LocalDate processingDate, LocalDate repaymentDate) {
+        this.id = id;
+        this.userId = userId;
+        this.isPaid = isPaid;
+        this.percent = percent;
+        this.term = term;
+        this.amount = amount;
+        this.processingDate = processingDate;
+        this.repaymentDate = repaymentDate;
+    }
 
     public static Builder builder() {
         return new Builder();
@@ -91,8 +108,8 @@ public class CreditEntity {
 
         }
 
-        public CreditEntity build() {
-            return new CreditEntity(id, userId, isPaid, percent, term, amount, processingDate, repaymentDate);
+        public CreditJson build() {
+            return new CreditJson(id, userId, isPaid, percent, term, amount, processingDate, repaymentDate);
         }
     }
 }

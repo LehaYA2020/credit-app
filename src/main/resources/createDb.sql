@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS credits
     percent                 int                         NOT NULL    DEFAULT (0),
     term                    int                         NOT NULL,
     amount                  bigint                      NOT NULL,
-    processing_date         timestamptz                 NOT NULL DEFAULT NOW(),
-    prepayment_date         timestamptz,
+    processing_date         timestamptz                 NOT NULL    DEFAULT now(),
+    repayment_date          timestamptz,
     PRIMARY KEY (id)
 );

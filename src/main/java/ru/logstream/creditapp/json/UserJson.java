@@ -1,31 +1,36 @@
-package ru.logstream.creditapp.models.beans;
+package ru.logstream.creditapp.json;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
-import ru.logstream.creditapp.models.validation.Create;
-import ru.logstream.creditapp.models.validation.Update;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import ru.logstream.creditapp.models.validation.*;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Null;
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.util.Objects;
 
+
 @Getter
-public class UserBean {
+@Setter
+@NoArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class UserJson {
     @Null(groups = Create.class)
     @NotNull(groups = Update.class)
-    private final Long id;
+    private Long id;
     @NotNull(groups = Create.class)
-    private final String name;
+    private String name;
     @NotNull(groups = Create.class)
-    private final String surname;
+    private String surname;
     @NotNull(groups = Create.class)
-    private final LocalDate birthday;
+    private LocalDate birthday;
     @NotNull(groups = Create.class)
-    private final String phoneNumber;
+    private String phoneNumber;
     @NotNull(groups = Create.class)
-    private final Long income;
+    private Long income;
 
-    private UserBean(Long id, String name, String surname, LocalDate birthday, String phoneNumber, Long income) {
+    private UserJson(Long id, String name, String surname, LocalDate birthday, String phoneNumber, Long income) {
         this.id = id;
         this.name = name;
         this.surname = surname;
@@ -39,7 +44,7 @@ public class UserBean {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        UserBean that = (UserBean) o;
+        UserJson that = (UserJson) o;
         return Objects.equals(id, that.id) && Objects.equals(name, that.name)
                 && Objects.equals(surname, that.surname)
                 && Objects.equals(birthday, that.birthday)
@@ -99,8 +104,8 @@ public class UserBean {
             return this;
         }
 
-        public UserBean build() {
-            return new UserBean(id, name, surname, birthday, phoneNumber, income);
+        public UserJson build() {
+            return new UserJson(id, name, surname, birthday, phoneNumber, income);
         }
     }
 }
