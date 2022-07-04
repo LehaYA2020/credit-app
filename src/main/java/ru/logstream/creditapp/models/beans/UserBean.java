@@ -1,28 +1,17 @@
 package ru.logstream.creditapp.models.beans;
 
 import lombok.Getter;
-import ru.logstream.creditapp.models.validation.Create;
-import ru.logstream.creditapp.models.validation.Update;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Null;
 import java.time.LocalDate;
 import java.util.Objects;
 
 @Getter
 public class UserBean {
-    @Null(groups = Create.class)
-    @NotNull(groups = Update.class)
     private final Long id;
-    @NotNull(groups = Create.class)
     private final String name;
-    @NotNull(groups = Create.class)
     private final String surname;
-    @NotNull(groups = Create.class)
     private final LocalDate birthday;
-    @NotNull(groups = Create.class)
     private final String phoneNumber;
-    @NotNull(groups = Create.class)
     private final Long income;
 
     private UserBean(Long id, String name, String surname, LocalDate birthday, String phoneNumber, Long income) {

@@ -3,7 +3,6 @@ package ru.logstream.creditapp.json.converters;
 import org.springframework.stereotype.Component;
 import ru.logstream.creditapp.json.CreditJson;
 import ru.logstream.creditapp.models.beans.CreditBean;
-import ru.logstream.creditapp.models.entities.CreditEntity;
 
 @Component
 public class CreditJsonConverter {

@@ -27,6 +27,7 @@ public class UserController {
     public void setConverter(UserJsonConverter converter) {
         this.converter = converter;
     }
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public UserBean save(@RequestBody @Validated(Create.class) UserJson user) {

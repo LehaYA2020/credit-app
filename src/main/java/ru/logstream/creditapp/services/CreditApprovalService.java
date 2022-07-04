@@ -33,10 +33,10 @@ public class CreditApprovalService {
                     return false;
                 }
             } else {
-                if(checkSolvency(user, credit)){
+                if (checkSolvency(user, credit)) {
                     creditRepositoryService.save(credit);
                     return true;
-                }else return false;
+                } else return false;
             }
         } else {
             throw new UserNotFoundException("user with id = " + credit.getUserId() + "not found!");

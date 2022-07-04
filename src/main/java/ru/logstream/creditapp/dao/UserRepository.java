@@ -11,7 +11,6 @@ import javax.transaction.Transactional;
 @Repository
 @Transactional
 public interface UserRepository extends CrudRepository<UserEntity, Long> {
-
     @Query(nativeQuery = true,
             value = "SELECT EXTRACT(" +
                     "YEAR from (" +

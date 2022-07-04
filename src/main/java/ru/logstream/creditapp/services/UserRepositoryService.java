@@ -2,10 +2,10 @@ package ru.logstream.creditapp.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.logstream.creditapp.models.beans.UserBean;
 import ru.logstream.creditapp.converters.UserConverter;
 import ru.logstream.creditapp.dao.UserRepository;
 import ru.logstream.creditapp.exceptions.UserNotFoundException;
+import ru.logstream.creditapp.models.beans.UserBean;
 
 import java.util.Optional;
 
@@ -36,8 +36,9 @@ public class UserRepositoryService {
             throw new UserNotFoundException("user with id = " + id + "not found!");
         }
     }
+
     public UserBean update(UserBean userBean) {
-        if(existsById(userBean.getId())){
+        if (existsById(userBean.getId())) {
             return converter.toBean(repository.save(converter.toEntity(userBean)));
         } else {
             throw new UserNotFoundException("user with id = " + userBean.getId() + "not found!");
@@ -49,7 +50,7 @@ public class UserRepositoryService {
     }
 
     public Integer getAge(Long userId) {
-        if(existsById(userId)) {
+        if (existsById(userId)) {
             return repository.getAge(userId);
         } else {
             throw new UserNotFoundException("user with id = " + userId + "not found!");

@@ -6,12 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.logstream.creditapp.json.CreditJson;
 import ru.logstream.creditapp.json.converters.CreditJsonConverter;
-import ru.logstream.creditapp.models.beans.CreditBean;
 import ru.logstream.creditapp.services.CreditApprovalService;
 
 @Component
 public class ApproveCreditProcess implements JavaDelegate {
-    @Autowired
     private CreditJsonConverter converter;
     private CreditApprovalService service;
 
@@ -20,10 +18,16 @@ public class ApproveCreditProcess implements JavaDelegate {
         this.service = service;
     }
 
-    Integer amount;
-    Long userId;
-    Integer percent;
-    Integer term;
+    @Autowired
+    public void setConverter(CreditJsonConverter converter) {
+        this.converter = converter;
+    }
+
+    private Integer amount;
+    private Long userId;
+    private Integer percent;
+    private Integer term;
+
     @Override
     public void execute(DelegateExecution delegateExecution) {
         amount = (Integer) delegateExecution.getVariable("amount");
@@ -31,6 +35,7 @@ public class ApproveCreditProcess implements JavaDelegate {
         percent = (Integer) delegateExecution.getVariable("percent");
         term = (Integer) delegateExecution.getVariable("term");
     }
+
     public CreditJson getCreditBean() {
         return CreditJson.builder()
                 .amount(amount)
